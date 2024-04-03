@@ -42,7 +42,7 @@ def generate_video(request):
         out.release()
 
         response = FileResponse(open(temp_filename, 'rb'), content_type='video/x-msvideo')
-        response['Content-Disposition'] = 'attachment; filename=video.avi'
+        response['Content-Disposition'] = 'attachment; filename=video.mp4'
         return response
     else:
         return HttpResponse('Method not allowed', status=405)
