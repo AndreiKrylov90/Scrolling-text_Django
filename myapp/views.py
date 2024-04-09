@@ -16,7 +16,7 @@ def generate_video(request):
         width, height = 100, 100
         fps = 25
         duration = 3
-        text_speed = 2
+        text_speed = len(text) / 6
 
         temp_file = tempfile.NamedTemporaryFile(delete=False, suffix='.avi')
         temp_filename = temp_file.name
@@ -33,10 +33,10 @@ def generate_video(request):
 
         for frame_number in range(duration * fps):
             frame = np.zeros((height, width, 3), np.uint8)
-            text_x = text_x_start - text_speed * frame_number
+            text_x = int(text_x_start - text_speed * frame_number)
             if text_x + text_size[0] < 0:
                 text_x = width
-            cv2.putText(frame, text, (text_x, text_y_start), font, font_scale, (255, 255, 255), font_thickness)
+            cv2.putText(frame, text, (text_x, int(text_y_start)), font, font_scale, (255, 255, 255), font_thickness)
             out.write(frame)
 
         out.release()
